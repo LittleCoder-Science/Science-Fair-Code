@@ -1,0 +1,41 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.integrate import odeint
+
+# Parameters
+N = 1000           # Total population
+beta = 0.3         # Transmission rate
+gamma = 0.1        # Recovery rate
+I0 = 1             # Initial number of infected individuals
+R0 = 0             # Initial number of recovered individuals
+S0 = N - I0 - R0   # Initial number of susceptible individuals
+
+# Time points
+t = np.linspace(0, 160, 160)
+
+# SIR model differential equations
+def sir_model(y, t, N, beta, gamma):
+    S, I, R = y
+    dSdt = -beta * S * I / N
+    dIdt = beta * S * I / N - gamma * I
+    dRdt = gamma * I
+    return [dSdt, dIdt, dRdt]
+
+# Initial conditions
+y0 = [S0, I0, R0]
+
+# Solve the differential equations
+ret = odeint(sir_model, y0, t, args=(N, beta, gamma))
+S, I, R = ret.T
+
+# Plot the results
+plt.figure(figsize=(10, 6))
+plt.plot(t, S, label='Susceptible', color='blue')
+plt.plot(t, I, label='Infected', color='red')
+plt.plot(t, R, label='Recovered', color='green')
+plt.title("SIR Model Simulation")
+plt.xlabel("Days")
+plt.ylabel("Number of People")
+plt.legend()
+plt.grid()
+plt.show()
