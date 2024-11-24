@@ -1,1 +1,25 @@
-Wait
+import streamlit as st
+
+st.title("Unified Disease Simulation and Diagnosis")
+
+# Section 1: SIR Model
+st.header("SIR Model")
+# Add sliders for beta, gamma, and initial conditions
+beta = st.slider("Transmission Rate (Beta)", 0.1, 1.0, 0.3)
+gamma = st.slider("Recovery Rate (Gamma)", 0.05, 0.5, 0.1)
+# Run SIR model code here and display plots
+
+# Section 2: Disease Diagnosis
+st.header("Disease Diagnosis")
+# Allow user input for patient data
+glucose = st.number_input("Enter Glucose Level:", 0, 300, 120)
+bmi = st.number_input("Enter BMI:", 0, 50, 25)
+age = st.number_input("Enter Age:", 0, 100, 40)
+# Run ML model for prediction and display results
+
+# Section 3: Drug Optimization
+st.header("Drug Dosage Optimization")
+# Add sliders for dose, half-life, etc.
+initial_dose = st.slider("Initial Dose (mg):", 100, 1000, 500)
+# Run drug concentration simulation and display plots
+
