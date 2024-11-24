@@ -1,0 +1,38 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Parameters
+initial_dose = 500  # Initial drug dose in mg
+half_life = 8       # Drug half-life in hours
+dosing_interval = 12 # Time between doses in hours
+simulation_time = 72 # Total simulation time in hours
+therapeutic_min = 50  # Minimum effective concentration in mg/L
+therapeutic_max = 150 # Maximum safe concentration in mg/L
+
+# Function to calculate drug concentration over time
+def drug_concentration(initial_dose, half_life, dosing_interval, simulation_time):
+    time_points = np.linspace(0, simulation_time, simulation_time)
+    concentration = np.zeros_like(time_points)
+    k = np.log(2) / half_life  # Elimination rate constant
+    
+    for i, t in enumerate(time_points):
+        dose_count = t // dosing_interval  # Number of doses administered
+        for d in range(int(dose_count) + 1):
+            if t >= d * dosing_interval:
+                concentration[i] += initial_dose * np.exp(-k * (t - d * dosing_interval))
+    return time_points, concentration
+
+# Run the simulation
+time_points, concentration = drug_concentration(initial_dose, half_life, dosing_interval, simulation_time)
+
+# Plot the results
+plt.figure(figsize=(10, 6))
+plt.plot(time_points, concentration, label='Drug Concentration')
+plt.axhline(therapeutic_min, color='green', linestyle='--', label='Therapeutic Minimum')
+plt.axhline(therapeutic_max, color='red', linestyle='--', label='Therapeutic Maximum')
+plt.title("Drug Dosage Optimization")
+plt.xlabel("Time (hours)")
+plt.ylabel("Concentration (mg/L)")
+plt.legend()
+plt.grid()
+plt.show()
