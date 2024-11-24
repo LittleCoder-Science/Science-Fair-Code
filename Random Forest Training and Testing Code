@@ -1,0 +1,41 @@
+# Import libraries
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import classification_report, accuracy_score, confusion_matrix
+
+# Step 1: Load the dataset
+# Replace this dictionary with real data or read from a CSV file
+data = {
+    'Glucose': [85, 120, 150, 70, 95, 180, 200, 160],
+    'BMI': [22, 30, 35, 18, 25, 40, 45, 38],
+    'Age': [25, 50, 65, 20, 40, 70, 80, 60],
+    'Disease': [0, 1, 1, 0, 0, 1, 1, 1]  # 0 = No disease, 1 = Disease
+}
+
+# Convert the dataset into a Pandas DataFrame
+df = pd.DataFrame(data)
+
+# Step 2: Split the data into features (X) and labels (y)
+X = df[['Glucose', 'BMI', 'Age']]  # Features
+y = df['Disease']                 # Labels
+
+# Step 3: Split the dataset into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Step 4: Train the Random Forest Classifier
+model = RandomForestClassifier(n_estimators=100, random_state=42)  # 100 trees in the forest
+model.fit(X_train, y_train)
+
+# Step 5: Make predictions on the test data
+y_pred = model.predict(X_test)
+
+# Step 6: Evaluate the model
+print("Confusion Matrix:\n", confusion_matrix(y_test, y_pred))
+print("\nClassification Report:\n", classification_report(y_test, y_pred))
+print("\nAccuracy Score:", accuracy_score(y_test, y_pred))
+
+# Example of predicting disease for a new patient
+new_patient = [[130, 28, 45]]  # Example patient data
+prediction = model.predict(new_patient)
+print("\nPrediction for new patient:", "Disease" if prediction[0] == 1 else "No Disease")
