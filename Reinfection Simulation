@@ -1,0 +1,36 @@
+import random
+
+def simulate_reinfection(population, immunity_rate, reinfection_prob, days):
+    """
+    Simulate reinfection dynamics in a population over time.
+    """
+    immune = int(population * immunity_rate)
+    susceptible = population - immune
+    daily_data = []
+
+    for day in range(days):
+        new_infections = int(reinfection_prob * susceptible)
+        susceptible -= new_infections
+        immune += new_infections
+        daily_data.append((day, susceptible, immune))
+
+    return daily_data
+
+# Parameters
+population = 1000
+immunity_rate = 0.7
+reinfection_prob = 0.01
+days = 30
+
+data = simulate_reinfection(population, immunity_rate, reinfection_prob, days)
+
+# Visualization
+days, susceptibles, immunes = zip(*data)
+plt.plot(days, susceptibles, label="Susceptible")
+plt.plot(days, immunes, label="Immune")
+plt.title("Reinfection Dynamics Over Time")
+plt.xlabel("Days")
+plt.ylabel("Individuals")
+plt.legend()
+plt.grid(True)
+plt.show()
