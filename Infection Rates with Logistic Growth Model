@@ -1,0 +1,20 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Parameters for logistic growth
+K = 1000  # Carrying capacity
+I0 = 10   # Initial infections
+r = 0.2   # Growth rate
+time = np.linspace(0, 50, 500)  # Time points
+
+# Logistic growth model
+I_t = K / (1 + ((K - I0) / I0) * np.exp(-r * time))
+
+# Visualization
+plt.plot(time, I_t, label="Infections Over Time", color="green")
+plt.title("Logistic Growth Model for Infections")
+plt.xlabel("Time (days)")
+plt.ylabel("Infected Individuals")
+plt.grid(True)
+plt.legend()
+plt.show()
