@@ -1,0 +1,16 @@
+def calculate_optimal_dosage(weight, target_concentration, volume, elimination_rate, dosing_interval):
+    """
+    Calculate optimal drug dosage based on patient parameters.
+    """
+    dosage = weight * (target_concentration * volume) / (elimination_rate * dosing_interval)
+    return dosage
+
+# Example parameters
+weight = 70  # kg
+target_concentration = 15  # mg/L
+volume = 50  # L
+elimination_rate = 0.1  # 1/hour
+dosing_interval = 12  # hours
+
+optimal_dosage = calculate_optimal_dosage(weight, target_concentration, volume, elimination_rate, dosing_interval)
+print(f"Optimal Dosage: {optimal_dosage:.2f} mg")
