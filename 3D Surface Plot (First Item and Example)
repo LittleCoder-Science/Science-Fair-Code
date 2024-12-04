@@ -1,0 +1,18 @@
+from mpl_toolkits.mplot3d import Axes3D
+
+# Generate data
+time = np.linspace(0, 48, 100)
+dosage = np.linspace(50, 500, 100)
+time_mesh, dosage_mesh = np.meshgrid(time, dosage)
+concentration = (dosage_mesh * 0.2 / (50 * (0.2 - 0.1))) * (np.exp(-0.1 * time_mesh) - np.exp(-0.2 * time_mesh))
+
+# Visualization
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+ax.plot_surface(time_mesh, dosage_mesh, concentration, cmap='viridis')
+
+ax.set_title("Drug Concentration Over Time and Dosage")
+ax.set_xlabel("Time (hours)")
+ax.set_ylabel("Dosage (mg)")
+ax.set_zlabel("Concentration (mg/L)")
+plt.show()
