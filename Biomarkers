@@ -1,0 +1,12 @@
+import matplotlib.pyplot as plt
+import pandas as pd
+
+# Example feature importances
+features = ['Age', 'Biomarker A', 'Biomarker B', 'Community Spread']
+importances = [0.3, 0.4, 0.2, 0.1]
+
+# Plot
+plt.bar(features, importances, color='skyblue')
+plt.title('Feature Importance in Disease Prediction')
+plt.ylabel('Importance')
+plt.show()
