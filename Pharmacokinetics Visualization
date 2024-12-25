@@ -1,0 +1,27 @@
+import matplotlib.pyplot as plt
+import numpy as np
+from scipy.integrate import odeint
+
+# Model function
+def drug_model(C, t, k_abs, k_elim):
+    dCdt = -k_elim * C + k_abs
+    return dCdt
+
+# Parameters
+time = np.linspace(0, 48, 500)  # 48 hours
+k_abs = 0.5
+k_elim = 0.2
+C0 = 0
+
+# Solve
+concentration = odeint(drug_model, C0, time, args=(k_abs, k_elim))
+
+# Plot
+plt.figure(figsize=(10, 6))
+plt.plot(time, concentration, label='Drug Concentration')
+plt.title('Drug Concentration Over Time')
+plt.xlabel('Time (Hours)')
+plt.ylabel('Concentration (mg/L)')
+plt.legend()
+plt.grid(True)
+plt.show()
